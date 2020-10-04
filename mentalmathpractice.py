@@ -1,35 +1,29 @@
+#Disclaimer: I started to build this from code picked up from https://stackoverflow.com/questions/32869791/python-mental-math-test-can-this-be-more-efficient 
+# I didn't really look into making it more efficient. Just wanted to implement more types of practice and make sure it worked to get kids to practive during the lockdown perdiod
+
 import random
 #import pandas as pd
 import time
-#from datetime import datetime, timedelta
 
-#print(datetime.datetime.now())
-#now=datetime.now()
-#year=now.strftime("%Y")
-#print("Year:",year)
-#month=now.strftime("%m")
-#print("Month:",month)
-#day=now.strftime("%d")
-#print("Day:",day)
-#time=now.strftime("%H:%M:%S")
-#print("Time:",time)
-#date_time=now.strftime("%Y-%m-%d %H:%M:%S")
-#print("date and time:",date_time)
-now = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
+#Adding timestamp for storing score history. To be implemented
+timenow = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
 
-#username = input("Enter your first name: ")
 while True:
 	try:
 		username = input("Enter your first name:")
 		break
 	except ValueError:
 		print("That was not a valid name. Try Again")
-print("This is mental math challenge for ", username, " on ", now)
+print("This is mental math challenge for ", username, " on ", timenow)
 score = 0
 
+#To define different difficulty levels. Not fully implemented yet.
 difficulty = 0
+
+#to be set to 1 when debugging.
 debug = 0
 
+#Reducing test time from 20 to 5 questions :)
 test = 0
 if (test==1):
 	numProblems=5
@@ -37,14 +31,19 @@ if (test==1):
 else:
 	numProblems = 20
 
+#To be implemented: Storing score and speed history per user/child
+#new_df = pd.read_csv('mentalmathscore.csv')
 
 start_time = time.time()
-#new_df = pd.read_csv('mentalmathscore.csv')
+
+#using time to seed the random number generation
 random.seed(int(start_time))
 
 for i in range(numProblems):
 	sign = ""
 	answer = 0
+
+	#to be implemented fully
 	if (difficulty == 0):
 		numOne = random.randint(1,100)
 		pickOperator = random.randint(1,13)
@@ -56,10 +55,20 @@ for i in range(numProblems):
 		pickOperator = random.randint(1,13)
 
 	numTwo = random.randint(1,100)
-	
+
+#1,10,11 - Addition          - 2 + 2 = ? or ___ + 2 = 4 or 2 + ____ = 4
+#2,12,13 - Subtraction       - 4 - 2 = ? or _____ - 2 = 2 or 4 - _____ = 2
+#3         Multiplacation    - 2 * 2 = ?
+#4         Division          - 4 / 2 = ?
+#5         Decimal addition
+#6         Decimal subtraction (results are always positive. need to add -ve results)
+#7         Decimal multiplication with integer
+#8         tried decimal substraction with integer - not working fully. currently same as #4
+#9         pre-algebra -- x + 5 = 10. x = ?
+
 	if (pickOperator == 8):
 		pickOperator = 4
-		
+
 	if pickOperator in [1,10,11]:
 		sign = " + "
 		answer = numOne + numTwo
@@ -115,10 +124,6 @@ for i in range(numProblems):
 	elif pickOperator == 9:
 		sign = " / "
 		answer = numTwo - numOne
-	elif pickOperator == 6:
-		floatOne = round(random.random(),2)
-		floatTwo = round(random.random(),2)
-		answer = floatOne + floatTwo
 	else:
 		print ("An error has occured")
 
