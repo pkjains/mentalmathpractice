@@ -101,7 +101,7 @@ for i in range(numProblems):
 		floatTwo = round(random.random(),2)
 		if floatOne < floatTwo:
 			floatOne, floatTwo = floatTwo, floatOne
-		answer = floatOne - floatTwo
+		answer = round(floatOne - floatTwo,2)
 	elif pickOperator == 7:
 		sign = " * "
 		floatOne = round(random.random(),2)
